@@ -38,11 +38,11 @@ public class ScraperController {
 		try {
 			GithubRepository githubRepository = null;
 			GithubRepository sessionGitHubRepository = (GithubRepository) session.getAttribute("GithubRepository");
+			String[] parts = urlRepository.split("\"");
 			/*
 			 * Checks if same URL was sent, if true, replace by already extracted GithubRepository POJO extracted from the session.
 			 */
-			if (sessionGitHubRepository == null || !sessionGitHubRepository.getUrlProfileGit().equals(urlRepository)) {
-				String[] parts = urlRepository.split("\"");
+			if (sessionGitHubRepository == null || !sessionGitHubRepository.getUrlProfileGit().equals(parts[3])) {
 				githubRepository = scraperService.getRepositoryStatistics(parts[3]);
 			} else {
 				githubRepository = sessionGitHubRepository;
