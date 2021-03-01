@@ -123,7 +123,11 @@ public class ExtractionUtils {
 			URLConnection conn = url.openConnection();
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			file.setBranchName(suffixBranch);
-			file.setExtension(suffixRepositoryFile.split("\\.")[suffixRepositoryFile.split("\\.").length - 1]);
+			String [] filesDot = suffixRepositoryFile.split("\\.");
+			/*
+			 * Separates the files by extension
+			 */
+			file.setExtension(filesDot.length > 1 ? filesDot[filesDot.length - 1] : filesDot[0]);
 			while ((inputLine = br.readLine()) != null) {
 				if (inputLine != null && !inputLine.equals("")) {
 					File f = getBranchFileInfo(inputLine);

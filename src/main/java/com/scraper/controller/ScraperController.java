@@ -1,10 +1,11 @@
 package com.scraper.controller;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,14 +27,29 @@ public class ScraperController {
 
 	@Autowired(required=false)
 	private ScraperService scraperService;
+	
+	@Autowired
+	HttpSession session;
 
 	@PostMapping(value = "/api/repo-info")
 	public ResponseEntity<Object> getRepositoryInfo(@RequestBody String urlRepository) {
 		ResponseEntity<Object> response = null;
 		final Map<String, Map<String, String>> statistics = new LinkedHashMap<String, Map<String, String>>();
 		try {
-			String[] parts = urlRepository.split("\"");
-			GithubRepository githubRepository = scraperService.getRepositoryStatistics(parts[3]);
+			GithubRepository githubRepository = null;
+			GithubRepository sessionGitHubRepository = (GithubRepository) session.getAttribute("GithubRepository");
+			/*
+			 * Checks if same URL was sent, if true, replace by already extracted GithubRepository POJO extracted from the session.
+			 */
+			if (sessionGitHubRepository == null || !sessionGitHubRepository.getUrlProfileGit().equals(urlRepository)) {
+				String[] parts = urlRepository.split("\"");
+				githubRepository = scraperService.getRepositoryStatistics(parts[3]);
+			} else {
+				githubRepository = sessionGitHubRepository;
+			}
+			/*
+			 * Handles values extracted from Github using web scraping techniques to respond to the requisition.
+			 */
 			if (!githubRepository.getFiles().isEmpty()) {
 				List<File> files = githubRepository.getFiles();
 				Collections.sort(files);
@@ -46,7 +62,7 @@ public class ScraperController {
 							totalBytes += f.getBytes();
 							totalLines += f.getLines();
 						} else {
-							final Map<String, String> values = new HashMap<>();
+							final Map<String, String> values = new LinkedHashMap<>();
 							values.put(String.valueOf("Bytes: " + totalBytes), String.valueOf("Lines: " + totalLines));
 							statistics.put(f.getExtension(), values);
 							totalBytes = 0.0;
@@ -54,7 +70,12 @@ public class ScraperController {
 						}
 					}
 				}
-			 
+				
+				/*
+				 * Put already extracted GithubRepository POJO into session to reuse it if possible.
+				 */
+				session.setAttribute("GithubRepository", githubRepository);
+
 				response = new ResponseEntity<>(statistics, HttpStatus.OK);
 
 			} else {
