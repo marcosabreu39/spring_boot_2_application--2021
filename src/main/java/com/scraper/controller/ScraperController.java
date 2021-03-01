@@ -2,6 +2,7 @@ package com.scraper.controller;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public class ScraperController {
 	@PostMapping(value = "/api/repo-info")
 	public ResponseEntity<Object> getRepositoryInfo(@RequestBody String urlRepository) {
 		ResponseEntity<Object> response = null;
-		final Map<String, Map<String, String>> statistics = new HashMap<String, Map<String, String>>();
+		final Map<String, Map<String, String>> statistics = new LinkedHashMap<String, Map<String, String>>();
 		try {
 			String[] parts = urlRepository.split("\"");
 			GithubRepository githubRepository = scraperService.getRepositoryStatistics(parts[3]);
@@ -53,6 +54,7 @@ public class ScraperController {
 						}
 					}
 				}
+			 
 				response = new ResponseEntity<>(statistics, HttpStatus.OK);
 
 			} else {
