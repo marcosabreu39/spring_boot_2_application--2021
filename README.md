@@ -21,5 +21,5 @@ Local tests with Postman
 Another test using Postman
 ```
 <p align="center">
-  <img width="1600" src="https://github.com/marcosabreu39/Agenda_Spring_Angularjs_Hibernate/blob/master/src/main/webapp/extras/cadastro_usuario.gif">
+  <img width="1600" src="https://github.com/marcosabreu39/spring_boot_2_application--2021/blob/master/src/main/resources/images/scrap_api_local_test.png">
 </p>
