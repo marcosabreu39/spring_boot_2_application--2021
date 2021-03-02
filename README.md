@@ -6,7 +6,7 @@
 *  MVC Architecture;
 * Spring Boot 2 Data Rest;
 * Spring Boot 2 Embedded Apache Tomcat;
-* Jackson Datab;
+* Jackson Databind;
 * SL4j Logger;
 * Eclipse IDE;
 
