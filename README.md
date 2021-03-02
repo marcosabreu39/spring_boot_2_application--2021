@@ -1,5 +1,3 @@
-# spring_boot_2_application--2021
-
 # Application Java using Spring Boot 2      
 
 ## Technologies
