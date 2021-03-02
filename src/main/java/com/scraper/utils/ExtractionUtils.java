@@ -52,7 +52,7 @@ public class ExtractionUtils {
 		final URL url;
 		String inputLine = null;
 		try {
-			url = new URL(urlRepository.concat(SUFFIX_URL_ALL_BRANCHES));
+			url = new URL(urlRepository.concat(SUFFIX_URL_ALL_BRANCHES).replace(" ","%20"));
 			URLConnection conn = url.openConnection();
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			while ((inputLine = br.readLine()) != null) {
@@ -90,11 +90,11 @@ public class ExtractionUtils {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<String> getJSONRepositoryFileNames(final String baseUrl, final String suffixRepository) {
 		List<String> repositoryFilesNames = null;
-		URI uri = URI.create(baseUrl.concat(SUFFIX_REPOSITORY_FILE_NAMES));
+		URI uri = URI.create(baseUrl.concat(SUFFIX_REPOSITORY_FILE_NAMES).replace(" ","%20"));
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-		headers.add("referer", baseUrl.concat(URL_BRANCH_APPENDER.concat(suffixRepository)));
+		headers.add("referer", baseUrl.concat(URL_BRANCH_APPENDER.concat(suffixRepository).replace(" ","%20")));
 		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 		HttpEntity request = new HttpEntity(headers);
 		ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, request, String.class);
@@ -119,7 +119,7 @@ public class ExtractionUtils {
 		final URL url;
 		String inputLine = null;
 		try {
-			url = new URL(urlRepository.concat(URL_FILE_APPENDER.concat(suffixBranch).concat("/").concat(suffixRepositoryFile.replace("\"", ""))));
+			url = new URL(urlRepository.concat(URL_FILE_APPENDER.concat(suffixBranch).concat("/").concat(suffixRepositoryFile.replace("\"", "").replace(" ","%20"))));
 			URLConnection conn = url.openConnection();
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			file.setBranchName(suffixBranch);
