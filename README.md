@@ -3,12 +3,11 @@
 ## Technologies
 
 * Java 8;
-*  MVC Architecture;** 
-* Spring Boot 2 Data;* * 
-* Spring Boot 2 Embedded Apache Tomcat;	* 
-* Jackson Databind
-* Maven;
-* SL4j Logger;* 
+*  MVC Architecture;
+* Spring Boot 2 Data;
+* Spring Boot 2 Embedded Apache Tomcat;
+* Jackson Datab;
+* SL4j Logger;
 * Eclipse IDE;
 
 ```
