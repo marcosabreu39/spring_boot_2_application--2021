@@ -1,4 +1,4 @@
-# Application Java using Spring Boot 2      
+# Java Application using Spring Boot 2      
 
 ## Technologies
 
