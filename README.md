@@ -3,11 +3,13 @@
 ## Technologies
 
 * Java 8;
-*  MVC Architecture;
+* MVC Architecture;
 * Spring Boot 2 Data Rest;
 * Spring Boot 2 Embedded Apache Tomcat;
 * Jackson Databind;
 * SL4j Logger;
+* TDD with Junit Jupiter;
+* Maven;
 * Eclipse IDE;
 
 ```
